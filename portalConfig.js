@@ -60,7 +60,7 @@ fs.readdir("./portals", function (err, files) {
   });
   fs.writeFile(
     "./portals/index.js",
-    "module.exports = " + JSON.stringify(configs),
+    "const data = " + JSON.stringify(configs) + "\n export default data;",
     "utf8",
     function () {}
   );

@@ -1,4 +1,4 @@
-const portals_configs = require("../../portals");
+import portals_configs from "../../portals";
 
 function removeSlashes(path) {
   return path.replace(/^\/+/g, "").replace(/\/+$/g, "");
@@ -6,48 +6,48 @@ function removeSlashes(path) {
 
 function portal(portalName) {
   this.portalName = portalName;
-  this.configs = portals_configs[portalName];
+  const configs = portals_configs[portalName];
 
   this.getBaseUrl = function () {
-    return this.configs.VUE_APP_BASE_URL;
+    return configs.VUE_APP_BASE_URL;
   };
   this.getAssetsUrl = function () {
-    return this.configs.VUE_APP_ASSETS_URL
-      ? this.configs.VUE_APP_ASSETS_URL
-      : this.configs.VUE_APP_DOMAIN_PREFIX;
+    return configs.VUE_APP_ASSETS_URL
+      ? configs.VUE_APP_ASSETS_URL
+      : configs.VUE_APP_DOMAIN_PREFIX;
   };
   this.getDomianPrefix = function () {
-    return this.configs.VUE_APP_DOMAIN_PREFIX;
+    return configs.VUE_APP_DOMAIN_PREFIX;
   };
   this.getOutputDir = function () {
-    return this.configs.VUE_APP_OUTPUT_DIR;
+    return configs.VUE_APP_OUTPUT_DIR;
   };
   this.getIndexFilePath = function () {
-    return this.configs.VUE_APP_INDEX_PATH;
+    return configs.VUE_APP_INDEX_PATH;
   };
   this.isMultiLogin = function () {
-    return this.configs.VUE_APP_MULTI_LOGIN;
+    return configs.VUE_APP_MULTI_LOGIN;
   };
   this.getEntry = function () {
-    return this.configs.VUE_APP_ENTRY;
+    return configs.VUE_APP_ENTRY;
   };
   this.getApiBaseUrl = function () {
-    return this.configs.VUE_APP_API_BASE_URL;
+    return configs.VUE_APP_API_BASE_URL;
   };
   this.getWebBaseUrl = function () {
-    return this.configs.VUE_APP_WEB_BASE_URL;
+    return configs.VUE_APP_WEB_BASE_URL;
   };
   this.get = function (key) {
-    return this.configs[key];
+    return configs[key];
   };
   this.getPort = function () {
-    return this.configs.VUE_APP_PORT;
+    return configs.VUE_APP_PORT;
   };
   this.getStorageUrl = function () {
-    return this.configs.VUE_APP_STORAGE_URL;
+    return configs.VUE_APP_STORAGE_URL;
   };
   this.getClientId = function () {
-    return this.configs.VUE_APP_CLIENT_ID;
+    return configs.VUE_APP_CLIENT_ID;
   };
   this.getPortalUrl = function (uri) {
     let landing_page = [removeSlashes(this.getBaseUrl())];
@@ -78,7 +78,4 @@ function portal(portalName) {
   };
 }
 const currentPortal = new portal("admin");
-module.exports = {
-  currentPortal: currentPortal,
-  portal: portal,
-};
+export { currentPortal, portal };
