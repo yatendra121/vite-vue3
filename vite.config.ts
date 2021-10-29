@@ -11,7 +11,54 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
-  plugins: [vue(), VitePWA()],
+  plugins: [
+    vue(),
+    VitePWA({
+      includeAssets: [
+        "favicon.svg",
+        "favicon.ico",
+        "robots.txt",
+        "apple-touch-icon.png",
+      ],
+      manifest: {
+        name: "vite-talwind",
+        theme_color: "white",
+        short_name: "vite-talwind",
+        start_url: currentPortal.getDomianPrefix(),
+        display: "standalone",
+        background_color: "#ffffff",
+        lang: "en",
+        scope: currentPortal.getDomianPrefix(),
+        icons: [
+          {
+            src: `${currentPortal.getDomianPrefix()}img/icons/48x48.png`,
+            sizes: "48x48",
+            type: "image/png",
+          },
+          {
+            src: `${currentPortal.getDomianPrefix()}img/icons/72x72.png`,
+            sizes: "72x72",
+            type: "image/png",
+          },
+          {
+            src: `${currentPortal.getDomianPrefix()}img/icons/96x96.png`,
+            sizes: "96x96",
+            type: "image/png",
+          },
+          {
+            src: `${currentPortal.getDomianPrefix()}img/icons/144x144.png`,
+            sizes: "144x144",
+            type: "image/png",
+          },
+          {
+            src: `${currentPortal.getDomianPrefix()}img/icons/512x512.png`,
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+    }),
+  ],
   base: currentPortal.getDomianPrefix(),
   server: {
     port: currentPortal.getPort(),

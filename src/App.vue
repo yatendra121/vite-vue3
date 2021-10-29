@@ -1,18 +1,17 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-//import HelloWorld from "./components/HelloWorld.vue";
+import test from "./components/HelloWorld.vue";
 //@ts-ignore;
 import { currentPortal } from "@/utils/portal-helper";
 console.log(currentPortal);
 
 //const { portalHelper } from "@/utils/portal-helper";
-//const portalHelper = require("@utils/portal-helper");
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld />
+  <test />
 </template>
 
 <style>

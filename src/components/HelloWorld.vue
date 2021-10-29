@@ -143,7 +143,7 @@
       </div>
     </div>
   </div>
-  <div class="py-12 bg-white">
+  <!-- <div class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
         <h2
@@ -215,7 +215,7 @@
         </dl>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
