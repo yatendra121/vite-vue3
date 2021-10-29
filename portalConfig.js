@@ -7,7 +7,6 @@ const environment = fs
   .readFileSync(__dirname + "/.env", "utf8")
   .toString()
   .trim();
-
 function getPortalConfig(portal, environment) {
   // Geting environment Veriables
   const environment_buff = fs.readFileSync(
@@ -21,11 +20,9 @@ function getPortalConfig(portal, environment) {
   const envFileName = portal
     ? ".env." + portal + "." + environment
     : ".env." + environment;
-
   if (!fs.existsSync(__dirname + "/" + envFileName)) {
     throw Error(envFileName + " File is not present");
   }
-
   // Geting Portal environment Veriables
   const portal_environment_buff = fs.readFileSync(
     __dirname + "/" + envFileName,
@@ -38,7 +35,6 @@ function getPortalConfig(portal, environment) {
     ...portal_environment_veriables,
   };
 }
-
 fs.readdir("./portals", function (err, files) {
   let configs = {};
   //handling error
@@ -49,7 +45,7 @@ fs.readdir("./portals", function (err, files) {
   //listing all files using forEach
   files.forEach(function (file) {
     let portal = file.split(".").slice(0, -1).join(".");
-    if (file !== "index.js") {
+    if (file !== "index.ts") {
       const portal_config = require("./portals/" + file);
       const portal_environment_config = getPortalConfig(portal, environment);
       configs[portal] = {
@@ -59,7 +55,7 @@ fs.readdir("./portals", function (err, files) {
     }
   });
   fs.writeFile(
-    "./portals/index.js",
+    "./portals/index.ts",
     "const data = " + JSON.stringify(configs) + "\n export default data;",
     "utf8",
     function () {}
