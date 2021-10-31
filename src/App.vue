@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from "vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import test from "./components/HelloWorld.vue";
+
 //@ts-ignore;
 import { currentPortal } from "@/utils/portal-helper";
-console.log(currentPortal);
 
-//const { portalHelper } from "@/utils/portal-helper";
+const EntryComponent = defineAsyncComponent(
+  () => import("./views/" + currentPortal.getEntry() + ".vue")
+);
+
+document.querySelector(".pace").remove();
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <test />
+  <EntryComponent />
 </template>
 
 <style>

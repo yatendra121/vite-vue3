@@ -6,10 +6,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Put your description here.">
     <title>Vite App</title>
+    <style type="text/css">
+        .pace {
+          -webkit-pointer-events: none;
+          pointer-events: none;
+          text-align: center;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+    
+          z-index: 3000;
+          position: fixed;
+          margin: auto;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 27px;
+          width: 300px;
+          font-size: 14px;
+    
+          /* border: 1px solid #29d; */
+    
+          overflow: hidden;
+        }
+    
+        .pace-progress {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -ms-box-sizing: border-box;
+          -o-box-sizing: border-box;
+          box-sizing: border-box;
+    
+          -webkit-transform: translate3d(0, 0, 0);
+          -moz-transform: translate3d(0, 0, 0);
+          -ms-transform: translate3d(0, 0, 0);
+          -o-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+    
+          max-width: 300px;
+          /*  position: fixed;*/
+          z-index: 3000;
+          display: block;
+          /*  position: absolute;*/
+          top: 0;
+          right: 100%;
+          height: 100%;
+          width: 1%;
+          background: #b02732;
+        }
+    
+        .progress-placeholder {
+          height: 3px;
+          width: 100%;
+          background: #db9db0;
+        }
+      </style>
+      <script type="text/javascript">
+        var p = 1;
+        var loader_progress2 = null
+        var loader_progress3 = null
+        var loader_progress1 = setInterval(function () {
+          if (p < 75) {
+            p++;
+            if (document.querySelector('.pace-progress')) {
+              document.querySelector('.pace-progress').style.width = p + '%'
+             // document.querySelector('.percentage').innerHTML = p + '%'
+            }
+          } else {
+            clearInterval(loader_progress1);
+            secondProcess();
+          }
+        }, 100)
+        function secondProcess() {
+          loader_progress2 = setInterval(function () {
+            if (p < 85) {
+              p++;
+              if (document.querySelector('.pace-progress')) {
+                document.querySelector('.pace-progress').style.width = p + '%'
+              //  document.querySelector('.percentage').innerHTML = p + '%'
+              }
+            } else {
+              clearInterval(loader_progress2);
+              thirdProcess()
+            }
+          }, 1000)
+        }
+        function thirdProcess() {
+          loader_progress3 = setInterval(function () {
+            if (p < 98) {
+              p++;
+              if (document.querySelector('.pace-progress')) {
+                document.querySelector('.pace-progress').style.width = p + '%'
+               // document.querySelector('.percentage').innerHTML = p + '%'
+              }
+            } else {
+              clearInterval(loader_progress3);
+            }
+          }, 2500)
+        }
+        function removeProgresssbar() {
+    
+          clearInterval(loader_progress1);
+          clearInterval(loader_progress2);
+          clearInterval(loader_progress3);
+          if (document.querySelector('.pace-progress')) {
+            document.querySelector('.pace-progress').style.width = '99%'
+           // document.querySelector('.percentage').innerHTML = '99%'
+          }
+        }
+      </script>
   </head>
-  <body>
+  <body onload="removeProgresssbar()">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <div class="pace">
+      <!-- <span class="percentage" style="font-family:  Arial, Helvetica, sans-serif;">1%</span> -->
+      <div class="progress-placeholder">
+        <div class="pace-progress"></div>
+      </div>
+    </div>
     <!-- built files will be auto injected -->
     <!-- <script>
       let sc = document.createElement('script');

@@ -1,7 +1,9 @@
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import App from "./App.vue";
 import "./index.css";
 import "./composables/core/useTestRepository";
+import axios from "./plugins/axios";
+import router from "./router";
 //@ts-ignore
 //import { alertMessage } from "vq-core-test";
 console.log(import.meta.env);
@@ -12,4 +14,10 @@ console.log(import.meta.env);
 
 //alertMessage("Nooooooo");
 
-createApp(App).mount("#app");
+const app = createApp(App);
+app.use(axios);
+app.use(router);
+
+app.mount("#app");
+
+//app.config.globalProperties.$axios = axios;
