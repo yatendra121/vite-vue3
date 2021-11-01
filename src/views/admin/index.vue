@@ -1,18 +1,26 @@
 <template>
-  <div id="nav">
+  <div id="nav" v-if="authLoading">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link to="/admin-app">Admin </router-link>
+    <router-view />
   </div>
-  <router-view />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-
 export default defineComponent({
-  setup() {},
+  props: {
+    authLoading: {
+      type: Boolean,
+      required: true,
+    },
+  },
   mounted() {
     this.$nextTick(function () {
-      // console.log(this.$axios.get("csadcd"));
+      setTimeout(() => {
+        let appLoading = document.querySelector("#initial_startup");
+        if (appLoading) appLoading.remove();
+      }, 300);
     });
   },
 });

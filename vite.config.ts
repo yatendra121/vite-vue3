@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vue from "@vitejs/plugin-vue";
+import DynamicImportVars from "@rollup/plugin-dynamic-import-vars";
 // import eslint from "@rollup/plugin-eslint";
 const { resolve } = require("path");
 import { currentPortal } from "./src/utils/portal-helper";
@@ -67,11 +68,12 @@ export default defineConfig({
   build: {
     outDir: currentPortal.getOutputDir(),
     manifest: true,
-    // rollupOptions: {
-    //   input: {
-    //     main: resolve(__dirname, "public/index.html"),
-    //     nested: resolve(__dirname, "nested/index.html"),
-    //   },
-    // },
+    rollupOptions: {
+      plugins: [DynamicImportVars()],
+      // input: {
+      //   main: resolve(__dirname, "public/index.html"),
+      //   nested: resolve(__dirname, "nested/index.html"),
+      // },
+    },
   },
 });

@@ -4,127 +4,270 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Put your description here.">
+    <meta name="description" content="Put your description here." />
     <title>Vite App</title>
     <style type="text/css">
-        .pace {
-          -webkit-pointer-events: none;
-          pointer-events: none;
-          text-align: center;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-    
-          z-index: 3000;
-          position: fixed;
-          margin: auto;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 27px;
-          width: 300px;
-          font-size: 14px;
-    
-          /* border: 1px solid #29d; */
-    
-          overflow: hidden;
+      #app,
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+      #app {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      #initial_startup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        user-select: none;
+        background-color: #f0f0f0;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+      .dark #initial_startup {
+        background-color: #131c21;
+      }
+      #initial_startup .graphic {
+        margin-top: -100px;
+        color: #bfbfbf;
+      }
+      .dark #initial_startup .graphic {
+        color: #6c7175;
+      }
+      #initial_startup .graphic .resume-logo {
+        transform: translateX(calc(50% - 52px / 2));
+      }
+      #initial_startup .graphic::after {
+        content: "";
+        position: relative;
+        top: -100%;
+        left: calc(50% - 72px * 2 - 72px / 2);
+        display: block;
+        width: calc(35px * 3);
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          rgba(240, 240, 240, 0.5) 0,
+          rgba(240, 240, 240, 0.5) 33.33%,
+          rgba(240, 240, 240, 0) 44.1%,
+          rgba(240, 240, 240, 0) 55.8%,
+          rgba(240, 240, 240, 0.5) 66.66%,
+          rgba(240, 240, 240, 0.5) 100%
+        );
+        opacity: 1;
+        animation: shimmer 1.5s linear 0.6s infinite;
+      }
+      html[dir="rtl"] #initial_startup .graphic::after {
+        animation-direction: reverse;
+      }
+      @keyframes shimmer {
+        from {
+          left: calc(50% - 72px * 2 - 72px / 2);
         }
-    
-        .pace-progress {
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          -ms-box-sizing: border-box;
-          -o-box-sizing: border-box;
-          box-sizing: border-box;
-    
-          -webkit-transform: translate3d(0, 0, 0);
-          -moz-transform: translate3d(0, 0, 0);
-          -ms-transform: translate3d(0, 0, 0);
-          -o-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-    
-          max-width: 300px;
-          /*  position: fixed;*/
-          z-index: 3000;
-          display: block;
-          /*  position: absolute;*/
-          top: 0;
-          right: 100%;
-          height: 100%;
-          width: 1%;
-          background: #b02732;
+        to {
+          left: calc(50% - 72px / 2);
         }
-    
-        .progress-placeholder {
-          height: 3px;
-          width: 100%;
-          background: #db9db0;
+      }
+      .dark #initial_startup .graphic::after {
+        background: linear-gradient(
+          to right,
+          rgba(19, 28, 33, 0.5) 0,
+          rgba(19, 28, 33, 0.5) 33.33%,
+          rgba(19, 28, 33, 0) 44.1%,
+          rgba(19, 28, 33, 0) 55.8%,
+          rgba(19, 28, 33, 0.5) 66.66%,
+          rgba(19, 28, 33, 0.5) 100%
+        );
+      }
+      #initial_startup .progress {
+        position: relative;
+        width: 420px;
+        height: 3px;
+        margin-top: 40px;
+      }
+      #initial_startup .progress progress {
+        vertical-align: top;
+      }
+      #initial_startup .main {
+        margin-top: 40px;
+        font-size: 17px;
+        color: #525252;
+      }
+      .dark #initial_startup .main {
+        color: #f1f1f2e0;
+      }
+      #initial_startup .secondary {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #00000073;
+      }
+      .dark #initial_startup .secondary {
+        color: #f1f1f273;
+      }
+      #initial_startup .secondary span {
+        vertical-align: middle;
+        display: inline-block;
+        margin-bottom: 2px;
+      }
+      progress {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 3px;
+        border: none;
+        margin: 0;
+        color: #00d9bb;
+        background-color: #e6e6e6;
+      }
+      progress[value]::-webkit-progress-bar {
+        background-color: #e6e6e6;
+      }
+      .dark progress,
+      .dark progress[value]::-webkit-progress-bar {
+        background-color: #2a2f32;
+      }
+      progress[value]::-moz-progress-bar,
+      progress[value]::-webkit-progress-value {
+        background-color: #00d9bb;
+        transition: width 0.45s ease;
+      }
+      .pace {
+        -webkit-pointer-events: none;
+        pointer-events: none;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+
+        z-index: 3000;
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 27px;
+        width: 400px;
+        font-size: 14px;
+
+        /* border: 1px solid #29d; */
+
+        overflow: hidden;
+      }
+
+      .pace-progress {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+
+        max-width: 400px;
+        /*  position: fixed;*/
+        z-index: 3000;
+        display: block;
+        /*  position: absolute;*/
+        top: 0;
+        right: 100%;
+        height: 100%;
+        width: 1%;
+        background: #3ec58d;
+      }
+
+      .progress-placeholder {
+        height: 3px;
+        width: 100%;
+        background: #c1d4c9;
+      }
+    </style>
+    <script type="text/javascript">
+      var p = 1;
+      var loader_progress2 = null
+      var loader_progress3 = null
+      var loader_progress1 = setInterval(function () {
+        if (p < 75) {
+          p++;
+          if (document.querySelector('.pace-progress')) {
+            document.querySelector('.pace-progress').style.width = p + '%'
+           // document.querySelector('.percentage').innerHTML = p + '%'
+          }
+        } else {
+          clearInterval(loader_progress1);
+          secondProcess();
         }
-      </style>
-      <script type="text/javascript">
-        var p = 1;
-        var loader_progress2 = null
-        var loader_progress3 = null
-        var loader_progress1 = setInterval(function () {
-          if (p < 75) {
+      }, 100)
+      function secondProcess() {
+        loader_progress2 = setInterval(function () {
+          if (p < 85) {
+            p++;
+            if (document.querySelector('.pace-progress')) {
+              document.querySelector('.pace-progress').style.width = p + '%'
+            //  document.querySelector('.percentage').innerHTML = p + '%'
+            }
+          } else {
+            clearInterval(loader_progress2);
+            thirdProcess()
+          }
+        }, 1000)
+      }
+      function thirdProcess() {
+        loader_progress3 = setInterval(function () {
+          if (p < 98) {
             p++;
             if (document.querySelector('.pace-progress')) {
               document.querySelector('.pace-progress').style.width = p + '%'
              // document.querySelector('.percentage').innerHTML = p + '%'
             }
           } else {
-            clearInterval(loader_progress1);
-            secondProcess();
+            clearInterval(loader_progress3);
           }
-        }, 100)
-        function secondProcess() {
-          loader_progress2 = setInterval(function () {
-            if (p < 85) {
-              p++;
-              if (document.querySelector('.pace-progress')) {
-                document.querySelector('.pace-progress').style.width = p + '%'
-              //  document.querySelector('.percentage').innerHTML = p + '%'
-              }
-            } else {
-              clearInterval(loader_progress2);
-              thirdProcess()
-            }
-          }, 1000)
+        }, 2500)
+      }
+      function removeProgresssbar() {
+
+        clearInterval(loader_progress1);
+        clearInterval(loader_progress2);
+        clearInterval(loader_progress3);
+        if (document.querySelector('.pace-progress')) {
+          document.querySelector('.pace-progress').style.width = '99%'
+         // document.querySelector('.percentage').innerHTML = '99%'
         }
-        function thirdProcess() {
-          loader_progress3 = setInterval(function () {
-            if (p < 98) {
-              p++;
-              if (document.querySelector('.pace-progress')) {
-                document.querySelector('.pace-progress').style.width = p + '%'
-               // document.querySelector('.percentage').innerHTML = p + '%'
-              }
-            } else {
-              clearInterval(loader_progress3);
-            }
-          }, 2500)
-        }
-        function removeProgresssbar() {
-    
-          clearInterval(loader_progress1);
-          clearInterval(loader_progress2);
-          clearInterval(loader_progress3);
-          if (document.querySelector('.pace-progress')) {
-            document.querySelector('.pace-progress').style.width = '99%'
-           // document.querySelector('.percentage').innerHTML = '99%'
-          }
-        }
-      </script>
+      }
+    </script>
   </head>
   <body onload="removeProgresssbar()">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <div class="pace">
-      <!-- <span class="percentage" style="font-family:  Arial, Helvetica, sans-serif;">1%</span> -->
-      <div class="progress-placeholder">
-        <div class="pace-progress"></div>
+    <div id="initial_startup">
+      <div class="graphic">
+        <span
+          ><img src="./logo.png" alt="logo" width="100" height="100" />
+        </span>
       </div>
+      <div class="progress">
+        <div class="pace">
+          <div class="progress-placeholder">
+            <div class="pace-progress"></div>
+          </div>
+        </div>
+      </div>
+      <div class="main">Sagent Application</div>
     </div>
     <!-- built files will be auto injected -->
     <!-- <script>

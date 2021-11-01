@@ -1,8 +1,12 @@
 import Vue from "vue";
 import axios from "axios";
+//@ts-ignore
 import { getToken, getDeviceId } from "@/utils/auth";
+//@ts-ignore
 import { getTimeOffset } from "@/utils";
+//@ts-ignore
 import { removeToken, removeRefreshToken } from "@/utils/auth";
+//@ts-ignore
 import { currentPortal } from "@/utils/portal-helper";
 const CancelToken = axios.CancelToken;
 
@@ -18,7 +22,7 @@ _axios.defaults.headers.common["client-id"] = currentPortal.getClientId();
 _axios.defaults.headers.common["Accept"] = "application/json, text/plain, */*";
 
 _axios.interceptors.request.use(
-  (config) => {
+  (config: any) => {
     const authToken = getToken();
     if (authToken) {
       config.headers["Authorization"] = "Bearer " + authToken;
