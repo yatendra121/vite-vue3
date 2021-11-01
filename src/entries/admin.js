@@ -1,7 +1,4 @@
-import main from "@/main";
 import router from "@/router/index";
-console.log(main.use(router));
-//import render from "@/utils/render";
 
 //render("admin-layout", router, main);
 
@@ -24,7 +21,7 @@ router.beforeEach((to, from, next) => {
   //   next()
   // }
 });
-router.push({ name: "About", params: {} });
+//router.push({ name: "About", params: {} });
 
 // _axios.get("my-profile");
 // alert(_axios.get("my-profile"));

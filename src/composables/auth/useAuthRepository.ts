@@ -1,0 +1,68 @@
+//@ts-ignore
+import Cookies from "js-cookie";
+//@ts-ignore
+import { currentPortal } from "@/utils/portal-helper";
+
+const prefix = currentPortal.get("VUE_APP_COOKIE_PREFIX")
+  ? currentPortal.get("VUE_APP_COOKIE_PREFIX")
+  : "";
+
+const TokenKey = prefix + "X-TOKEN";
+const RefreshTokenKey = prefix + "X-REFRESH-TOKEN";
+const DeviceIdKey = "DEVICE-ID";
+
+/**
+ * To get the Authentication token
+ */
+const getToken = () => {
+  return Cookies.get(TokenKey);
+};
+
+/**
+ * To Get the Refresh Token
+ */
+const getRefreshToken = () => {
+  return Cookies.get(RefreshTokenKey);
+};
+/**
+ * To get the device token
+ */
+const getDeviceId = () => {
+  return Cookies.get(DeviceIdKey);
+};
+
+const setToken = (token: string, path: string, domain: string) => {
+  return Cookies.set(TokenKey, token, { expires: 30, path, domain });
+};
+
+const setRefreshToken = (token: string, path: string, domain: string) => {
+  return Cookies.set(RefreshTokenKey, token, { expires: 45, path, domain });
+};
+
+const setDeviceId = (deviceId: string) => {
+  return Cookies.set(DeviceIdKey, deviceId, { expires: 200000 });
+};
+
+const removeToken = () => {
+  return Cookies.remove(TokenKey);
+};
+
+const removeRefreshToken = () => {
+  return Cookies.remove(RefreshTokenKey);
+};
+
+const removeDeviceId = () => {
+  return Cookies.remove(DeviceIdKey);
+};
+
+export {
+  getToken,
+  getRefreshToken,
+  getDeviceId,
+  setToken,
+  setRefreshToken,
+  setDeviceId,
+  removeToken,
+  removeRefreshToken,
+  removeDeviceId,
+};

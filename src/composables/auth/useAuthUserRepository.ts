@@ -1,7 +1,10 @@
 import { _axios, CancelToken } from "@/plugins/axios";
 import { ref } from "vue";
 import store from "@/store";
-export default function useDatatableAxiosRepository() {
+import router from "@/router";
+import { removeToken, removeRefreshToken } from "./useAuthRepository";
+
+export default function useAuthUserRepository() {
   let cancel;
   const finished = ref(false);
   const myProfile = async (url: string) => {
@@ -27,5 +30,24 @@ export default function useDatatableAxiosRepository() {
       });
   };
 
-  return { myProfile, finished };
+  /**
+   * To logout the user and redirect to login page.
+   */
+  const logOutUser = (socket_id: string) => {
+    return _axios({
+      url: "logout",
+      method: "POST",
+      data: { socket_id },
+    }).finally(() => {
+      removeToken();
+      removeRefreshToken();
+      store.dispatch("profile/delete");
+      router.push("/");
+      return new Promise((resolve) => {
+        resolve(true);
+      });
+    });
+  };
+
+  return { myProfile, finished, logOutUser };
 }

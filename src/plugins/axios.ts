@@ -1,13 +1,16 @@
 import Vue from "vue";
 import axios from "axios";
-//@ts-ignore
-import { getToken, getDeviceId } from "@/utils/auth";
+import {
+  removeToken,
+  removeRefreshToken,
+  getToken,
+  getDeviceId,
+} from "@/composables/auth/useAuthRepository";
 //@ts-ignore
 import { getTimeOffset } from "@/utils";
 //@ts-ignore
-import { removeToken, removeRefreshToken } from "@/utils/auth";
-//@ts-ignore
 import { currentPortal } from "@/utils/portal-helper";
+
 const CancelToken = axios.CancelToken;
 
 axios.defaults.headers.post["Content-Type"] =
@@ -16,7 +19,7 @@ console.log(currentPortal.getApiBaseUrl());
 let config = {
   baseURL: currentPortal.getApiBaseUrl(), // api Base URl
 };
-console.log({ getToken, getDeviceId });
+
 let _axios = axios.create(config);
 _axios.defaults.headers.common["client-id"] = currentPortal.getClientId();
 _axios.defaults.headers.common["Accept"] = "application/json, text/plain, */*";
