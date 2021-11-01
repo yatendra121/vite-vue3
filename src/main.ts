@@ -6,6 +6,13 @@ import axios from "./plugins/axios";
 import router from "./router";
 import store from "./store";
 //@ts-ignore
+import vuetify from "./plugins/vuetify";
+//@ts-ignore
+import { loadFonts } from "./plugins/webfontloader";
+
+loadFonts();
+
+//@ts-ignore
 //import { alertMessage } from "vq-core-test";
 console.log(import.meta.env);
 
@@ -19,6 +26,7 @@ const app = createApp(App);
 app.use(axios);
 app.use(store);
 app.use(router);
+app.use(vuetify);
 
 app.mount("#app");
 

@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vue from "@vitejs/plugin-vue";
+import vuetify from "@vuetify/vite-plugin";
 import DynamicImportVars from "@rollup/plugin-dynamic-import-vars";
 // import eslint from "@rollup/plugin-eslint";
 const { resolve } = require("path");
@@ -60,7 +61,14 @@ export default defineConfig({
     },
   },
   //eslint(),
-  plugins: [vue(), VitePWA(pwaConfig)],
+  plugins: [
+    vue(),
+    VitePWA(pwaConfig),
+    vuetify({
+      autoImport: true,
+      styles: "expose",
+    }),
+  ],
   base: currentPortal.getDomianPrefix(),
   server: {
     port: currentPortal.getPort(),

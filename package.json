@@ -2,33 +2,42 @@
   "name": "vite-talwind",
   "version": "0.0.0",
   "scripts": {
-    "dev": "node portalConfig && vite",
-    "build": "node portalConfig && vue-tsc --noEmit && vite build",
-    "build-force": "node portalConfig && vite build",
     "serve": "vite preview",
-    "config-key-merge": "node portalConfig"
+    "build": "vite build",
+    "build-force": "node portalConfig && vite build",
+    "config-key-merge": "node portalConfig",
+    "dev": "vite"
   },
   "dependencies": {
+    "@mdi/font": "5.9.55",
     "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
+    "roboto-fontface": "*",
     "vq-core-test": "^0.0.11",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vuetify": "^3.0.0-alpha.0",
+    "vuex": "^4.0.2",
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-dynamic-import-vars": "^1.4.1",
     "@rollup/plugin-eslint": "^8.0.1",
     "@vitejs/plugin-vue": "^1.9.3",
+    "@vue/cli-service": "~5.0.0-beta.3",
+    "@vuetify/vite-plugin": "^1.0.0-alpha.3",
     "autoprefixer": "^10.3.7",
     "dotenv": "^10.0.0",
-    "eslint-plugin-vue": "^8.0.3",
     "postcss": "^8.3.11",
+    "sass": "^1.38.0",
+    "sass-loader": "^10.0.0",
     "tailwindcss": "^2.2.17",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.3",
     "vite": "^2.6.13",
     "vite-plugin-pwa": "^0.11.3",
-    "vue-tsc": "^0.3.0"
+    "vue-cli-plugin-vuetify": "~2.4.3",
+    "vue-tsc": "^0.3.0",
+    "vuetify-loader": "^2.0.0-alpha.0"
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="nav" v-if="authLoading">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About | </router-link>
     <router-link to="/admin-app">Admin </router-link>
     <router-view />
   </div>
