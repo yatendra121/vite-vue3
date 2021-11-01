@@ -1,0 +1,51 @@
+{
+  "index.html": {
+    "file": "assets/index.af68c81f.js",
+    "src": "index.html",
+    "isEntry": true,
+    "imports": [
+      "_vendor.70a8950f.js"
+    ],
+    "dynamicImports": [
+      "src/views/admin/Dashboard/index.vue",
+      "src/views/admin/About/index.vue",
+      "src/views/admin/adminApp.vue"
+    ],
+    "css": [
+      "assets/index.71bee94a.css"
+    ]
+  },
+  "_vendor.70a8950f.js": {
+    "file": "assets/vendor.70a8950f.js"
+  },
+  "src/views/admin/Dashboard/index.vue": {
+    "file": "assets/index.8b255e41.js",
+    "src": "src/views/admin/Dashboard/index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_plugin-vue_export-helper.5a098b48.js",
+      "_vendor.70a8950f.js"
+    ]
+  },
+  "_plugin-vue_export-helper.5a098b48.js": {
+    "file": "assets/plugin-vue_export-helper.5a098b48.js"
+  },
+  "src/views/admin/About/index.vue": {
+    "file": "assets/index.12d478c8.js",
+    "src": "src/views/admin/About/index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_plugin-vue_export-helper.5a098b48.js",
+      "_vendor.70a8950f.js"
+    ]
+  },
+  "src/views/admin/adminApp.vue": {
+    "file": "assets/adminApp.3c27d928.js",
+    "src": "src/views/admin/adminApp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor.70a8950f.js",
+      "_plugin-vue_export-helper.5a098b48.js"
+    ]
+  }
+}
