@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import useAuthUserRepository from "@/composables/auth/useAuthUserRepository";
 
 const { myProfile, finished } = useAuthUserRepository();
-myProfile("my-profile").then(() => {});
+const hasAuth = ref(null);
+myProfile("my-profile").then(() => {
+  hasAuth.value = true;
+});
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 
@@ -15,7 +18,7 @@ const EntryComponent = defineAsyncComponent(
 );
 </script>
 <template>
-  <EntryComponent :auth-loading="finished" />
+  <EntryComponent :has-auth="hasAuth" :auth-loading="finished" />
 </template>
 <style>
 #app {

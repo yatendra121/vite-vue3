@@ -3,10 +3,14 @@ import { ref } from "vue";
 import store from "@/store";
 import router from "@/router";
 import { removeToken, removeRefreshToken } from "./useAuthRepository";
+import { ActionTypes, MutationType } from "@/store/modules/profile";
 
 export default function useAuthUserRepository() {
   let cancel;
-  const finished = ref(false);
+  const finished = ref<{
+    valueOf: () => Boolean;
+  }>(false);
+  // const finished = ref<Boolean>(false);
   const myProfile = async (url: string) => {
     return await _axios
       .get(url, {
@@ -15,18 +19,24 @@ export default function useAuthUserRepository() {
         }),
       })
       .then(async (response: any) => {
-        await store.dispatch("profile/set", { data: response.data.user });
-        return new Promise((resolve) => {
+        console.log(response.data.user);
+        await store.dispatch(ActionTypes.CHANGE, {
+          key: MutationType.DELETE,
+          data: response.data.user,
+        });
+        return await new Promise((resolve) => {
           resolve(response.data);
         });
       })
-      .catch((response: any) => {
-        return new Promise((resolve, reject) => {
+      .catch(async (response: any) => {
+        return await new Promise((resolve, reject) => {
           reject(response.data);
         });
       })
       .finally(() => {
-        finished.value = true;
+        setTimeout(() => {
+          finished.value = true;
+        }, 100);
       });
   };
 

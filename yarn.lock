@@ -3577,11 +3577,6 @@
   "resolved" "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
   "version" "3.1.0"
 
-"vq-core-test@^0.0.11":
-  "integrity" "sha512-hC1yO2ldzgsFDuEzqcQqSmhr16biQDF33oXmHdAV2VyBJx0BrGv9RQSWEYUFx8gCTgIFQi+QOZdpWLkk6y6HrA=="
-  "resolved" "https://registry.npmjs.org/vq-core-test/-/vq-core-test-0.0.11.tgz"
-  "version" "0.0.11"
-
 "vscode-css-languageservice@^5.1.4":
   "integrity" "sha512-h4oafcZaGFe2VtbNIlkZDmLEP0GQha3E5Ct2YMH4p/p9xYC8yWDNQ5CD+VF3UnSijKPSKmA+oc4cKjhJBowGKw=="
   "resolved" "https://registry.npmjs.org/vscode-css-languageservice/-/vscode-css-languageservice-5.1.7.tgz"

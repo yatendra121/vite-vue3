@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper.5a098b48.js";import{g as n,o,k as t}from"./vendor.8f3151c5.js";const r=n({setup(){},mounted(){this.$nextTick(function(){})}});function s(c,p,a,i,f,u){return o(),t("h1",null,"1241414")}var l=e(r,[["render",s]]);export{l as default};
