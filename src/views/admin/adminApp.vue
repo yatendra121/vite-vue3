@@ -1,4 +1,5 @@
 <template>
+  {{ authProfile }}
   <div
     class="
       p-6

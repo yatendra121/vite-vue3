@@ -11,7 +11,6 @@
   "dependencies": {
     "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
-    "vq-core-test": "^0.0.11",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"

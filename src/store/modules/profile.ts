@@ -1,51 +1,85 @@
-// define your typings for the store state
-export interface UserProfile {
-  id: number;
-  email: string;
-  name: string;
-  [key: string]: any;
-}
-
-export interface StateProfile {
-  profile: UserProfile | null;
-}
+import { UserProfile, StateProfile } from "@/store/state";
+import { ActionContext, ActionTree, MutationTree } from "vuex";
 
 const state: StateProfile = {
   profile: null,
 };
 
-const actions = {
-  set({ commit }, { data }) {
-    commit("change", { data });
+export enum ActionTypes {
+  CHANGE = "CHANGE",
+  UPDATE = "UPDATE",
+  MIX = "MIX",
+  DELETE = "DELETE",
+}
+
+type ActionAugments = Omit<
+  ActionContext<StateProfile, StateProfile>,
+  "commit"
+> & {
+  commit<K extends keyof Mutations>(
+    key: K,
+    data: Parameters<Mutations[K]>[1]
+  ): ReturnType<Mutations[K]>;
+};
+
+export type Actions = {
+  [ActionTypes.CHANGE](context: ActionAugments, data: UserProfile): void;
+  // [ActionTypes.UPDATE](context: ActionAugments): void;
+  [ActionTypes.MIX](context: ActionAugments, data: UserProfile): void;
+  [ActionTypes.DELETE](context: ActionAugments): void;
+};
+
+export const actions: ActionTree<StateProfile, StateProfile> & Actions = {
+  async [ActionTypes.CHANGE]({ commit }, { data }) {
+    commit(MutationType.CHANGE, data);
   },
-  update({ commit }, { key, value }) {
-    commit("update", { key, value });
+
+  async [ActionTypes.MIX]({ commit }, { data }) {
+    commit(MutationType.MIX, data.data);
   },
-  mix({ commit }, { value }) {
-    commit("mix", { value });
-  },
-  delete({ commit }) {
-    commit("delete");
+
+  async [ActionTypes.DELETE]({ commit }) {
+    commit(MutationType.DELETE, null);
   },
 };
 
-const mutations = {
-  change(state: StateProfile, { data }) {
+export enum MutationType {
+  CHANGE = "CHANGE",
+  UPDATE = "UPDATE",
+  MIX = "MIX",
+  DELETE = "DELETE",
+}
+
+export type Mutations = {
+  [MutationType.CHANGE](state: StateProfile, data: UserProfile): void;
+  [MutationType.UPDATE](state: StateProfile, data: UserProfile[]): void;
+  [MutationType.MIX](
+    state: StateProfile,
+    data: Partial<UserProfile> & { id: number }
+  ): void;
+  [MutationType.DELETE](state: StateProfile, data: null): void;
+};
+
+export const mutations: MutationTree<StateProfile> & Mutations = {
+  [MutationType.CHANGE](state, data) {
     state.profile = data;
   },
-  update(state: StateProfile, { key, value }) {
-    helper.setProp(state.profile, key, value, true);
+  [MutationType.UPDATE](state, data) {
+    //state.profile = data;
   },
-  mix(state: StateProfile, { value }) {
-    state.profile = { ...state.profile, ...value };
+  [MutationType.MIX](state, newItem) {
+    //state.profile = { ...state.data[item], ...newItem };
   },
-  delete(state: StateProfile) {
-    state.profile = null;
+  [MutationType.DELETE](state, data) {
+    state.profile = data;
   },
 };
+
 export default {
-  namespaced: true,
   state,
-  actions,
   mutations,
+  actions,
 };
+function data(CHANGE: MutationType, data: any) {
+  throw new Error("Function not implemented.");
+}
