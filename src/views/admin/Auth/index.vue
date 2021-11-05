@@ -22,124 +22,90 @@
           Sign in to your account
         </h2>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
-        <input type="hidden" name="remember" value="true" />
-        <div class="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="email-address" class="sr-only">Email address</label>
-            <input
-              id="email-address"
-              name="email"
-              type="email"
-              autocomplete="email"
-              required=""
-              class="
-                appearance-none
-                rounded-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-t-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
-                sm:text-sm
-              "
-              placeholder="Email address"
-            />
-          </div>
-          <div>
-            <label for="password" class="sr-only">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              required=""
-              class="
-                appearance-none
-                rounded-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-b-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
-                sm:text-sm
-              "
-              placeholder="Password"
-            />
-          </div>
-        </div>
+      <Form :initial-values="initialValues"
+        :validation-schema="schema"
+        @submit="onTest">
+        <QInputWithValidation
+          name="email"
+          label="Email"
+          placeholder="Email"
+        />
 
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="
-                h-4
-                w-4
-                text-indigo-600
-                focus:ring-indigo-500
-                border-gray-300
-                rounded
-              "
-            />
-          </div>
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            class="
-              group
-              relative
-              w-full
-              flex
-              justify-center
-              py-2
-              px-4
-              border border-transparent
-              text-sm
-              font-medium
-              rounded-md
-              text-white
-              bg-indigo-600
-              hover:bg-indigo-700
-              focus:outline-none
-              focus:ring-2
-              focus:ring-offset-2
-              focus:ring-indigo-500
-            "
-          >
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-            </span>
-            Sign in
-          </button>
-        </div>
-      </form>
+        <QInputWithValidation
+          label="Password"
+          name="password"
+          placeholder="p@$$vv0Rd"
+        />
+        <q-btn class="q-mt-md" color="primary" type="submit" label="Submit" />
+      </Form>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Field, Form } from "vee-validate";
+import * as yup from "yup";
+import QInputWithValidation from "@/components/QInputWithValidation.vue";
+import useAuthUserRepository from "@/composables/auth/useAuthUserRepository";
+import {_axios} from "@/plugins/axios";
+import { defineComponent,reactive } from "vue";
 
 export default defineComponent({
-  setup() {},
+  components: {
+    Field,
+    Form,
+    QInputWithValidation,
+  },
+   setup() {
+
+     
+const { userProfileStore } = useAuthUserRepository();
+
+
+    const schema = yup.object({
+   //  email: yup.string().required().email().label("Email address"),
+
+    // password: yup.string().required().min(6).label("Password"),
+      
+    });
+
+    // Providing initial values for the `terms` and `subscribed` fields
+    // because q-checkbox has 3 states, in which undefined means undetermined
+    // providing an explict false initial value avoids this
+    const initialValues = reactive({
+      email: 'admin@sagent.com',
+      password: '12345678',
+    });
+
+    function onSubmit(values, actions) {
+      alert('csacasc')
+      console.log(JSON.stringify(values, null, 2));
+     // actions.resetForm();
+    }
+
+    function onTest(values, actions) {
+      _axios.post('login',values).then(response => {
+        userProfileStore(response.data.user)
+        console.log(response)
+      }).catch( (response) => {
+         actions.setErrors(response.response.data.errors);
+       // console.log(response.response.data.errors)
+      })
+      console.log('ok')
+      console.log(values)
+      console.log(JSON.stringify(values, null));
+     // actions.resetForm();
+    }
+
+    return {
+      onSubmit,
+      onTest,
+      schema,
+      initialValues,
+      options: [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ]
+    };
+  },
 });
 </script>
+

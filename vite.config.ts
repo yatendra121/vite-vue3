@@ -2,9 +2,11 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vue from "@vitejs/plugin-vue";
 import DynamicImportVars from "@rollup/plugin-dynamic-import-vars";
-// import eslint from "@rollup/plugin-eslint";
+import eslint from "@rollup/plugin-eslint";
 const { resolve } = require("path");
 import { currentPortal } from "./src/utils/portal-helper";
+
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
 const pwaConfig = {
   includeAssets: [
@@ -59,8 +61,16 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
-  //eslint(),
-  plugins: [vue(), VitePWA(pwaConfig)],
+  
+  plugins: [vue({
+    template: { transformAssetUrls }
+  }),
+
+  eslint(),
+
+  quasar({
+    sassVariables: 'src/quasar-variables.sass'
+  }), VitePWA(pwaConfig)],
   base: currentPortal.getDomianPrefix(),
   server: {
     port: currentPortal.getPort(),

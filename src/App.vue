@@ -3,7 +3,7 @@ import { defineAsyncComponent, ref } from "vue";
 import useAuthUserRepository from "@/composables/auth/useAuthUserRepository";
 
 const { myProfile, finished } = useAuthUserRepository();
-const hasAuth = ref(null);
+const hasAuth = ref<null|Boolean>(null);
 myProfile("my-profile").then(() => {
   hasAuth.value = true;
 });
@@ -20,7 +20,7 @@ const EntryComponent = defineAsyncComponent(
 <template>
   <EntryComponent :has-auth="hasAuth" :auth-loading="finished" />
 </template>
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
