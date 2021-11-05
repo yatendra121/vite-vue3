@@ -9,7 +9,7 @@ import {
 import profile from "./modules/profile";
 import { Mutations, Actions } from "./modules/profile";
 import { getters, Getters } from "./getters";
-import { StateProfile, state } from "@/store/state";
+import { State, state } from "@/store/state";
 
 // define your typings for the store state
 export interface State {
@@ -17,7 +17,7 @@ export interface State {
 }
 
 // store.ts
-export const store = createStore<StateProfile>({
+export const store = createStore<State>({
   plugins: [createLogger()],
   //state: state,
   // mutations: {},
@@ -31,7 +31,7 @@ export function useStore() {
 }
 
 export type Store = Omit<
-  VuexStore<StateProfile>,
+  VuexStore<State>,
   "getters" | "commit" | "dispatch"
 > & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(

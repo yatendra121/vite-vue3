@@ -31,6 +31,14 @@ const getDeviceId = () => {
   return Cookies.get(DeviceIdKey);
 };
 
+export function setTokens(token, path, domain) {
+  removeToken()
+  removeRefreshToken()
+  path = '/' + removeSlashes(path)
+  setToken(token.access_token, path, domain)
+  setRefreshToken(token.refresh_token, path, domain)
+}
+
 const setToken = (token: string, path: string, domain: string) => {
   return Cookies.set(TokenKey, token, { expires: 30, path, domain });
 };

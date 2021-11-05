@@ -1,7 +1,7 @@
-import { UserProfile, StateProfile } from "@/store/state";
+import { UserProfile, State } from "@/store/state";
 import { ActionContext, ActionTree, MutationTree } from "vuex";
 
-const state: StateProfile = {
+const state: State = {
   profile: null,
 };
 
@@ -13,7 +13,7 @@ export enum ActionTypes {
 }
 
 type ActionAugments = Omit<
-  ActionContext<StateProfile, StateProfile>,
+  ActionContext<State, State>,
   "commit"
 > & {
   commit<K extends keyof Mutations>(
@@ -29,7 +29,7 @@ export type Actions = {
   [ActionTypes.DELETE](context: ActionAugments): void;
 };
 
-export const actions: ActionTree<StateProfile, StateProfile> & Actions = {
+export const actions: ActionTree<State, State> & Actions = {
   async [ActionTypes.CHANGE]({ commit }, { data }) {
     commit(MutationType.CHANGE, data);
   },
@@ -51,16 +51,16 @@ export enum MutationType {
 }
 
 export type Mutations = {
-  [MutationType.CHANGE](state: StateProfile, data: UserProfile): void;
-  [MutationType.UPDATE](state: StateProfile, data: UserProfile[]): void;
+  [MutationType.CHANGE](state: State, data: UserProfile): void;
+  [MutationType.UPDATE](state: State, data: UserProfile[]): void;
   [MutationType.MIX](
-    state: StateProfile,
+    state: State,
     data: Partial<UserProfile> & { id: number }
   ): void;
-  [MutationType.DELETE](state: StateProfile, data: null): void;
+  [MutationType.DELETE](state: State, data: null): void;
 };
 
-export const mutations: MutationTree<StateProfile> & Mutations = {
+export const mutations: MutationTree<State> & Mutations = {
   [MutationType.CHANGE](state, data) {
     state.profile = data;
   },

@@ -2,15 +2,22 @@ import { _axios, CancelToken } from "@/plugins/axios";
 import { ref } from "vue";
 import store from "@/store";
 import router from "@/router";
-import { removeToken, removeRefreshToken } from "./useAuthRepository";
-import { ActionTypes, MutationType } from "@/store/modules/profile";
+import { setToken, setRefreshToken, removeToken, removeRefreshToken } from "./useAuthRepository";
+import { ActionTypes } from "@/store/modules/profile";
+import { AxiosSuccessResponse, AxiosErrorResponse, LoginResponse } from "@/types/response";
+import { UserProfile } from "@/store/state";
 
 export default function useAuthUserRepository() {
+
   let cancel;
   const finished = ref<{
     valueOf: () => Boolean;
   }>(false);
   // const finished = ref<Boolean>(false);
+
+  /**
+   * To get my profile data and store in state.
+   */
   const myProfile = async (url: string) => {
     return await _axios
       .get(url, {
@@ -18,12 +25,55 @@ export default function useAuthUserRepository() {
           cancel = c;
         }),
       })
-      .then(async (response: any) => {
-        console.log(response.data.user);
-        await store.dispatch(ActionTypes.CHANGE, {
-          key: MutationType.DELETE,
-          data: response.data.user,
+      .then(async (response: AxiosSuccessResponse) => {
+        await userProfileStore(response.data.user)
+
+        userProfileAuthStore(response)
+
+        return await new Promise((resolve) => {
+          resolve(response.data);
         });
+      })
+      .catch(async (response: AxiosErrorResponse) => await new Promise((resolve, reject) => {
+        reject(response.data);
+      }))
+      .finally(() => {
+        setTimeout(() => {
+          finished.value = true;
+        }, 100);
+      });
+  };
+
+  /**
+   * To store user profile into state.
+   */
+  const userProfileStore = async (userProfile:UserProfile) => {
+    await store.dispatch(ActionTypes.CHANGE, {
+      key: ActionTypes.CHANGE,
+      data: userProfile,
+    });    
+  }
+
+    /**
+   * To store auth into cookie.
+   */
+     const userProfileAuthStore = (response:AxiosSuccessResponse) => {
+      setToken(response.token,'test','localhost')
+      setRefreshToken(response.token,'test','localhost')
+    }
+
+  /**
+   * To login user and set data into state.
+   */
+  const loginUser = async (url: string,requestData: Object) => {
+    return await _axios
+      .post(url, requestData,  {
+        cancelToken: new CancelToken(function executor(c) {
+          cancel = c;
+        }),
+      })
+      .then(async (response: AxiosSuccessResponse) => {
+        await userProfileStore(response.data.user)
         return await new Promise((resolve) => {
           resolve(response.data);
         });
@@ -39,6 +89,9 @@ export default function useAuthUserRepository() {
         }, 100);
       });
   };
+
+  
+  
 
   /**
    * To logout the user and redirect to login page.
@@ -59,5 +112,5 @@ export default function useAuthUserRepository() {
     });
   };
 
-  return { myProfile, finished, logOutUser };
+  return { myProfile, finished, logOutUser,userProfileStore };
 }

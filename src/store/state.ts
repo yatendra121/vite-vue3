@@ -6,10 +6,10 @@ export type UserProfile = {
   [key: string]: any;
 };
 
-export type StateProfile = {
+export type State = {
   profile: UserProfile | null;
 };
 
-export const state: StateProfile = {
+export const state: State = {
   profile: null,
 };

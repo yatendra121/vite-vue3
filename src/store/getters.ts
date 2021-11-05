@@ -1,12 +1,12 @@
 import { GetterTree } from "vuex";
-import { UserProfile, StateProfile } from "@/store/state";
+import { UserProfile, State } from "@/store/state";
 
 export type Getters = {
-  authProfile(state: StateProfile): UserProfile;
-  permissions(state: StateProfile): any;
+  authProfile(state: State): UserProfile;
+  permissions(state: State): any;
 };
 
-export const getters: GetterTree<StateProfile, StateProfile> & Getters = {
+export const getters: GetterTree<State, State> & Getters = {
   authProfile: (state) => (state.profile ? state.profile.profile : null),
   permissions: (state) =>
     state.profile && state.profile.profile && state.profile.profile.permissions
