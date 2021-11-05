@@ -31,23 +31,28 @@ const getDeviceId = () => {
   return Cookies.get(DeviceIdKey);
 };
 
-export function setTokens(token, path, domain) {
-  removeToken()
-  removeRefreshToken()
-  path = '/' + removeSlashes(path)
-  setToken(token.access_token, path, domain)
-  setRefreshToken(token.refresh_token, path, domain)
-}
+const setTokens = (token: any) => {
+  const domain = currentPortal.getBaseUrl();
+  removeToken();
+  removeRefreshToken();
+  setToken(token.access_token, "/", domain);
+  setRefreshToken(token.refresh_token, "/", domain);
+};
 
-const setToken = (token: string, path: string, domain: string) => {
+const removeTokens = () => {
+  removeToken();
+  removeRefreshToken();
+};
+
+const setToken = (token: String, path: String, domain: String) => {
   return Cookies.set(TokenKey, token, { expires: 30, path, domain });
 };
 
-const setRefreshToken = (token: string, path: string, domain: string) => {
+const setRefreshToken = (token: String, path: String, domain: String) => {
   return Cookies.set(RefreshTokenKey, token, { expires: 45, path, domain });
 };
 
-const setDeviceId = (deviceId: string) => {
+const setDeviceId = (deviceId: String) => {
   return Cookies.set(DeviceIdKey, deviceId, { expires: 200000 });
 };
 
@@ -73,4 +78,6 @@ export {
   removeToken,
   removeRefreshToken,
   removeDeviceId,
+  setTokens,
+  removeTokens,
 };
