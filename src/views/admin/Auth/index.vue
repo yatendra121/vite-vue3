@@ -22,16 +22,17 @@
           Sign in to your account
         </h2>
       </div>
+      <h1>ok</h1>
       <Form :initial-values="initialValues"
         :validation-schema="schema"
         @submit="onTest">
-        <QInputWithValidation
+        <vq-input
           name="email"
           label="Email"
           placeholder="Email"
         />
 
-        <QInputWithValidation
+        <vq-input
           label="Password"
           name="password"
           placeholder="p@$$vv0Rd"
@@ -47,7 +48,7 @@ import * as yup from "yup";
 import QInputWithValidation from "@/components/QInputWithValidation.vue";
 import useAuthUserRepository from "@/composables/auth/useAuthUserRepository";
 import {_axios} from "@/plugins/axios";
-import { defineComponent,reactive } from "vue";
+import { defineComponent,reactive, getCurrentInstance } from "vue";
 
 export default defineComponent({
   components: {
@@ -57,14 +58,20 @@ export default defineComponent({
   },
    setup() {
 
+     const test =  getCurrentInstance()
+
+     if(!test) return {}
+
+    const axios = test.appContext.config.globalProperties.$axios
+
      
 const { userProfileStore } = useAuthUserRepository();
 
 
     const schema = yup.object({
-   //  email: yup.string().required().email().label("Email address"),
+     email: yup.string().required().email().label("Email address"),
 
-    // password: yup.string().required().min(6).label("Password"),
+     password: yup.string().required().min(6).label("Password"),
       
     });
 

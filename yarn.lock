@@ -3035,10 +3035,10 @@
     "postcss" "^8.2.1"
     "postcss-selector-parser" "^6.0.2"
 
-"quasar@^2.0.0", "quasar@^2.2.2":
-  "integrity" "sha512-X5+Q6N9LMG+1ebmAD+1CJst//mj3Tf3S2N6CwcGEO8OEpVTSU2G+t+shuO3EsQwjVJR6jBJDvcqRJhoxCliPXw=="
-  "resolved" "https://registry.npmjs.org/quasar/-/quasar-2.2.2.tgz"
-  "version" "2.2.2"
+"quasar@^2.0.0", "quasar@^2.2.4":
+  "integrity" "sha512-hX7R/K/WjIff5C+70Tc594n+HZgnMcDy/a9UpQTGgQaKWyIRNCANDd7PSKPqggYQY2fLfFCoiFcDy2g9GEfHUA=="
+  "resolved" "https://registry.npmjs.org/quasar/-/quasar-2.2.4.tgz"
+  "version" "2.2.4"
 
 "queue-microtask@^1.2.2":
   "integrity" "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A=="
@@ -3630,6 +3630,13 @@
   "integrity" "sha1-YU9/v42AHwu18GYfWy9XhXUOTwk="
   "resolved" "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
   "version" "3.1.0"
+
+"vq-quasar@^0.0.40":
+  "integrity" "sha512-jO4Xgd+4pZ/dPG4yFr5b6MDoRSguYA1tDSZ1WrN8G45optru1NmSW+J9XvQAheBi/VVMPyehS7nf1YoW3kHu7Q=="
+  "resolved" "https://registry.npmjs.org/vq-quasar/-/vq-quasar-0.0.40.tgz"
+  "version" "0.0.40"
+  dependencies:
+    "vue" "^3.2.16"
 
 "vscode-css-languageservice@^5.1.4":
   "integrity" "sha512-h4oafcZaGFe2VtbNIlkZDmLEP0GQha3E5Ct2YMH4p/p9xYC8yWDNQ5CD+VF3UnSijKPSKmA+oc4cKjhJBowGKw=="

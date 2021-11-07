@@ -1,5 +1,7 @@
 import { createApp, defineAsyncComponent } from "vue";
 import { Quasar } from 'quasar'
+import vqQuasar from 'vq-quasar'
+console.log(vqQuasar)
 
 // Import icon libraries
 import '@quasar/extras/roboto-font-latin-ext/roboto-font-latin-ext.css'
@@ -20,6 +22,7 @@ console.log(import.meta.env);
 
 const app = createApp(App);
 app.use(axios);
+app.use(vqQuasar);
 app.use(Quasar)
 app.use(store);
 app.use(router);
